@@ -1,0 +1,28 @@
+import bpy 
+import math 
+import random
+
+num_cubes = 500
+
+radius =30
+
+cursor_loc = bpy.context.scene.cursor.location
+
+for i in range(num_cubes)
+  bpy.ops.mesh.primitive_cube_add()
+
+  theta = random.uniform(0, 2 * math.pi)
+  phi = random.uniform(0, math.pi)
+  x = radius * math.sin(phi) * math.cos(theta)
+  y = radius * math.sin(phi) * math.cos(theta)
+  z = radius * math.cos(phi)
+  rot_x = 0
+  rot_y = 0
+  rot_z = theta
+
+  bpy.context.active_object.location =  (x, y, z)
+  bpy.context.active_object.rotation_euler = (rot_x, rot_y, rot_z)
+
+  bpy.context.active_object.rotation_euler = bpy.context.active_object.matrix_world.to_euler()
+  bpy.context.active_object.rotation_euler[2] = math.atan2(cursor_loc.y - y, cursor_loc.x - x)
+
